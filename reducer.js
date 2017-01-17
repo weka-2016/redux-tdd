@@ -2,14 +2,6 @@ const clone = require('clone')
 
 module.exports = reducer
 
-// there is only one state
-
-// reducer is pure function
-//  => no side-effects
-
-// copy the state before you modify it
-// (DO NOT mutate the state)
-
 function reducer (state, action) {
   const newState = clone(state)
 
@@ -32,4 +24,3 @@ function reducer (state, action) {
   }
 
 }
-

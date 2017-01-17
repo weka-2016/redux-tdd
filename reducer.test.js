@@ -2,126 +2,61 @@ const test = require('tape')
 const freeze = require('deep-freeze')
 const reducer = require('./reducer')
 
-test('adding fruit to cart', t => {
-  const state = { 
-    products: {
-      1: {
-        name: 'banana',
-        stock: 12,
-        quantity: 0,
-        price: 1.05,
-        subtotal: 0
-      }
-    },
-    total: 0
+// index
+// Test 1: add new project to projects data"base"
+// Test 2: add new ppe to ppe data"base"
+
+//Default Test Setup
+// test('adds a new project to the project data"base"',function(t){
+//   let state = { }
+//   freeze(state)
+//
+//   let action = {type:'' , payload:''}
+//
+//   let expectedState ={ }
+//
+//   let newState = reducer(state,action)
+//
+//   t.deepEqual(newState, expectedState, 'adds a new project to the project Data')
+//   t.end()
+// })
+
+test('Test 1: adds a new project to the project data"base"',function(t){
+
+  const state = {
+    projects: [{
+      project_id: 1,
+      project_number:'122433',
+      project_name: 'Office Repairs',
+      location:'1 Willis street,',
+      SWMS:'N/A',
+      important_Notices:''
+    }]
   }
   freeze(state)
+  
+  const action = {type:'ADD_PROJECT_TO_PROJECTDATA' , payload:'2'}
 
-  // add a banana to our cart
-  //
-  const action = {
-    type: 'ADD_PRODUCT_TO_CART',  // magic string
-    payload: 1  // the id of a banana
+  const expectedState ={
+    projects: [
+      {project_id: 1,
+        project_number:'122433',
+        project_name: 'Office Repairs',
+        location:'1 Willis street,',
+        SWMS:'N/A',
+        important_Notices:''
+      },
+      {project_id: 2,
+        project_number:'345221',
+        project_name: 'Chorus',
+        location:'3 thorndon street',
+        SWMS:'available',
+        important_Notices:'Wooden ladders only'
+      }]
   }
 
-  const expectedState = { 
-    products: {
-      1: {
-        name: 'banana',
-        stock: 11,
-        quantity: 1,
-        price: 1.05,
-        subtotal: 1.05
-      }
-    },
-    total: 1.05
-  }
+  const newState = reducer(state,action)
 
-  const newState = reducer(state, action)
-
-  // redux.createStore(reducer)
-  // store.dispatch(action)
-  // const newState = store.getState()
-
-  t.deepEqual(newState, expectedState, 'should update the quantity, stock, totals')
-  // first test ends here
-
-
-  // A new test : add another banana (after the first one)
-  //
-  const aFurtherNewState = reducer(newState, action)
-
-  const aFurtherExpectedState = { 
-    products: {
-      1: {
-        name: 'banana',
-        stock: 10,
-        quantity: 2,
-        price: 1.05,
-        subtotal: 2.10
-      }
-    },
-    total: 2.10
-  }
-
-  t.deepEqual(aFurtherNewState, aFurtherExpectedState, 'can add two bananas')
-
+  t.deepEqual(newState, expectedState, 'adds a new project to the project Data')
   t.end()
 })
-
-
-test('trying to add fruit when there is none', t => {
-  const state = { 
-    products: {
-      1: {
-        name: 'banana',
-        stock: 0,
-        quantity: 0,
-        price: 1.05,
-        subtotal: 0
-      }
-    },
-    total: 0
-  }
-
-  // add a banana to our cart
-  //
-  const action = {
-    type: 'ADD_PRODUCT_TO_CART',  // magic string
-    payload: 1
-  }
-
-  const expectedState = { 
-    products: {
-      1: {
-        name: 'banana',
-        stock: 0,
-        quantity: 0,
-        price: 1.05,
-        subtotal: 0
-      }
-    },
-    total: 0
-  }
-
-  const newState = reducer(state, action)
-
-  // redux.createStore(reducer)
-  // store.dispatch(action)
-  // const newState = store.getState()
-
-  t.deepEqual(newState, expectedState, 'should update the quantity, stock, totals')
-
-  t.end()
-})
-
-test('trying to add a non-existant product', t => {
-
-  const action = {
-    type: 'ADD_PRODUCT_TO_CART',  // magic string
-    payload: 99  // the id of ??
-  }
-
-  t.end()
-})
-
