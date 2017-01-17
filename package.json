@@ -1,0 +1,21 @@
+{
+  "name": "redux_tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node *.test.js | tap-diff"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clone": "^2.1.0",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "deep-freeze": "0.0.1",
+    "tap-diff": "^0.1.1",
+    "tape": "^4.6.3"
+  }
+}
