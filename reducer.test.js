@@ -1,6 +1,6 @@
 const test = require('tape')
+const freeze = require('deep-freeze')
 const reducer = require('./reducer')
-
 
 test('adding fruit to cart', t => {
   const state = { 
@@ -15,12 +15,13 @@ test('adding fruit to cart', t => {
     },
     total: 0
   }
+  freeze(state)
 
   // add a banana to our cart
   //
   const action = {
     type: 'ADD_PRODUCT_TO_CART',  // magic string
-    payload: 1
+    payload: 1  // the id of a banana
   }
 
   const expectedState = { 
@@ -43,9 +44,10 @@ test('adding fruit to cart', t => {
   // const newState = store.getState()
 
   t.deepEqual(newState, expectedState, 'should update the quantity, stock, totals')
+  // first test ends here
 
 
-  // add another banana 
+  // A new test : add another banana (after the first one)
   //
   const aFurtherNewState = reducer(newState, action)
 
@@ -113,4 +115,13 @@ test('trying to add fruit when there is none', t => {
   t.end()
 })
 
+test('trying to add a non-existant product', t => {
+
+  const action = {
+    type: 'ADD_PRODUCT_TO_CART',  // magic string
+    payload: 99  // the id of ??
+  }
+
+  t.end()
+})
 
